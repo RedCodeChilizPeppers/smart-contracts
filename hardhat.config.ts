@@ -24,14 +24,14 @@ const config: HardhatUserConfig = {
     },
   },
   solidity: {
-    version: "0.8.23",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
+        version: "0.8.23",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
       evmVersion: "berlin", // aligns with EVM ≥ 19 on Chiliz
-    },
+        },
   },
   paths: {
     sources: "./contracts",
