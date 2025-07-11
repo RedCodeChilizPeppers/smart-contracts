@@ -5,14 +5,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title MockCAP20
+ * @title MockWCHZ
  * @dev A simple ERC20 token implementation using OpenZeppelin contracts
  */
-contract MockCAP20 is ERC20, Ownable {
+contract MockWCHZ is ERC20, Ownable {
     
     uint256 public constant INITIAL_SUPPLY = 1000000000 * 10**18; // 1 billion tokens
     
-    constructor() ERC20("Mock CAP20", "MPSG") Ownable(msg.sender) {
+    constructor() ERC20("Mock WCHZ", "MWCHZ") Ownable(msg.sender) {
         _mint(msg.sender, INITIAL_SUPPLY);
     }
     
