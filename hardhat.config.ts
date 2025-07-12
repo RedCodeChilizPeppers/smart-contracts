@@ -30,7 +30,8 @@ const config: HardhatUserConfig = {
             enabled: true,
             runs: 200,
           },
-      evmVersion: "berlin", // aligns with EVM ≥ 19 on Chiliz
+          viaIR: true, // Enable via-IR compilation to handle stack too deep
+          evmVersion: "berlin", // aligns with EVM ≥ 19 on Chiliz
         },
   },
   paths: {
