@@ -87,4 +87,112 @@ contract UniswapV2Router02 {
         require(reserveA > 0 && reserveB > 0, 'UniswapV2Router: INSUFFICIENT_LIQUIDITY');
         amountB = amountA * reserveB / reserveA;
     }
+
+    // ==========================================
+    // SWAP FUNCTIONS
+    // ==========================================
+
+    function swapExactTokensForTokens(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external ensure(deadline) returns (uint[] memory amounts) {
+        amounts = getAmountsOut(amountIn, path);
+        require(amounts[amounts.length - 1] >= amountOutMin, 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT');
+        
+        IERC20(path[0]).transferFrom(msg.sender, UniswapV2Factory(factory).getPair(path[0], path[1]), amounts[0]);
+        _swap(amounts, path, to);
+    }
+
+    function swapTokensForExactTokens(
+        uint amountOut,
+        uint amountInMax,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external ensure(deadline) returns (uint[] memory amounts) {
+        amounts = getAmountsIn(amountOut, path);
+        require(amounts[0] <= amountInMax, 'UniswapV2Router: EXCESSIVE_INPUT_AMOUNT');
+        
+        IERC20(path[0]).transferFrom(msg.sender, UniswapV2Factory(factory).getPair(path[0], path[1]), amounts[0]);
+        _swap(amounts, path, to);
+    }
+
+    function _swap(uint[] memory amounts, address[] memory path, address _to) internal {
+        for (uint i; i < path.length - 1; i++) {
+            (address input, address output) = (path[i], path[i + 1]);
+            (address token0,) = sortTokens(input, output);
+            uint amountOut = amounts[i + 1];
+            (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOut) : (amountOut, uint(0));
+            address to = i < path.length - 2 ? UniswapV2Factory(factory).getPair(output, path[i + 2]) : _to;
+            UniswapV2Pair(UniswapV2Factory(factory).getPair(input, output)).swap(
+                amount0Out, amount1Out, to, new bytes(0)
+            );
+        }
+    }
+
+    // ==========================================
+    // UTILITY FUNCTIONS
+    // ==========================================
+
+    function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) public pure returns (uint amountOut) {
+        require(amountIn > 0, 'UniswapV2Router: INSUFFICIENT_INPUT_AMOUNT');
+        require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Router: INSUFFICIENT_LIQUIDITY');
+        uint amountInWithFee = amountIn * 997;
+        uint numerator = amountInWithFee * reserveOut;
+        uint denominator = reserveIn * 1000 + amountInWithFee;
+        amountOut = numerator / denominator;
+    }
+
+    function getAmountIn(uint amountOut, uint reserveIn, uint reserveOut) public pure returns (uint amountIn) {
+        require(amountOut > 0, 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT');
+        require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Router: INSUFFICIENT_LIQUIDITY');
+        uint numerator = reserveIn * amountOut * 1000;
+        uint denominator = (reserveOut - amountOut) * 997;
+        amountIn = (numerator / denominator) + 1;
+    }
+
+    function getAmountsOut(uint amountIn, address[] memory path) public view returns (uint[] memory amounts) {
+        require(path.length >= 2, 'UniswapV2Router: INVALID_PATH');
+        amounts = new uint[](path.length);
+        amounts[0] = amountIn;
+        for (uint i; i < path.length - 1; i++) {
+            (uint reserveIn, uint reserveOut) = getReserves(path[i], path[i + 1]);
+            amounts[i + 1] = getAmountOut(amounts[i], reserveIn, reserveOut);
+        }
+    }
+
+    function getAmountsIn(uint amountOut, address[] memory path) public view returns (uint[] memory amounts) {
+        require(path.length >= 2, 'UniswapV2Router: INVALID_PATH');
+        amounts = new uint[](path.length);
+        amounts[amounts.length - 1] = amountOut;
+        for (uint i = path.length - 1; i > 0; i--) {
+            (uint reserveIn, uint reserveOut) = getReserves(path[i - 1], path[i]);
+            amounts[i - 1] = getAmountIn(amounts[i], reserveIn, reserveOut);
+        }
+    }
+
+    // ==========================================
+    // LIQUIDITY REMOVAL
+    // ==========================================
+
+    function removeLiquidity(
+        address tokenA,
+        address tokenB,
+        uint liquidity,
+        uint amountAMin,
+        uint amountBMin,
+        address to,
+        uint deadline
+    ) external ensure(deadline) returns (uint amountA, uint amountB) {
+        address pair = UniswapV2Factory(factory).getPair(tokenA, tokenB);
+        IERC20(pair).transferFrom(msg.sender, pair, liquidity);
+        (uint amount0, uint amount1) = UniswapV2Pair(pair).burn(to);
+        (address token0,) = sortTokens(tokenA, tokenB);
+        (amountA, amountB) = tokenA == token0 ? (amount0, amount1) : (amount1, amount0);
+        require(amountA >= amountAMin, 'UniswapV2Router: INSUFFICIENT_A_AMOUNT');
+        require(amountB >= amountBMin, 'UniswapV2Router: INSUFFICIENT_B_AMOUNT');
+    }
 } 

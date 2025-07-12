@@ -14,7 +14,7 @@ const config: HardhatUserConfig = {
     },
     spicy: {
       url: SPICY_RPC || "https://spicy-rpc.chiliz.com/",
-      chainId: 1777,
+      chainId: 88882,
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
     mainnet: {
