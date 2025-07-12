@@ -34,20 +34,47 @@ async function main() {
 
     console.log("Deploying MockWCHZ...");
     deployedContracts.mockWCHZ = await hre.viem.deployContract("MockWCHZ", []);
-    console.log(`✅ MockWCHZ deployed: ${deployedContracts.mockWCHZ.address}`);
+    console.log(`✅ MockWCHZ 1 deployed: ${deployedContracts.mockWCHZ.address}`);
     deploymentInfo.contracts.MockWCHZ = {
       address: deployedContracts.mockWCHZ.address,
       name: "Mock WCHZ",
       symbol: "MWCHZ"
     };
 
-    console.log("Deploying MockCAP20...");
-    deployedContracts.mockCAP20 = await hre.viem.deployContract("MockCAP20", []);
-    console.log(`✅ MockCAP20 deployed: ${deployedContracts.mockCAP20.address}`);
-    deploymentInfo.contracts.MockCAP20 = {
-      address: deployedContracts.mockCAP20.address,
-      name: "Mock CAP20",
-      symbol: "MCAP"
+    console.log("Deploying MockPSG...");
+    deployedContracts.mockPSG = await hre.viem.deployContract("MockPSG", []);
+    console.log(`✅ MockPSG deployed: ${deployedContracts.mockPSG.address}`);
+    deploymentInfo.contracts.MockPSG = {
+      address: deployedContracts.mockPSG.address,
+      name: "Mock PSG",
+      symbol: "MPSG"
+    };
+
+    console.log("Deploying MockFCB...");
+    deployedContracts.mockFCB = await hre.viem.deployContract("MockFCB", []);
+    console.log(`✅ MockFCB deployed: ${deployedContracts.mockFCB.address}`);
+    deploymentInfo.contracts.MockFCB = {
+      address: deployedContracts.mockFCB.address,
+      name: "Mock FCB",
+      symbol: "MFCB"
+    };
+
+    console.log("Deploying MockOG...");
+    deployedContracts.mockOG = await hre.viem.deployContract("MockOG", []);
+    console.log(`✅ MockOG deployed: ${deployedContracts.mockOG.address}`);
+    deploymentInfo.contracts.MockOG = {
+      address: deployedContracts.mockOG.address,
+      name: "Mock OG",
+      symbol: "MOG"
+    };
+
+    console.log("Deploying MockUFC...");
+    deployedContracts.mockUFC = await hre.viem.deployContract("MockUFC", []);
+    console.log(`✅ MockUFC deployed: ${deployedContracts.mockUFC.address}`);
+    deploymentInfo.contracts.MockUFC = {
+      address: deployedContracts.mockUFC.address,
+      name: "Mock UFC",
+      symbol: "MUFC"
     };
 
     // ===========================================

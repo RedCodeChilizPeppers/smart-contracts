@@ -58,6 +58,26 @@ async function deployCompleteSystem(options = {}) {
       contracts.mockCAP20 = await hre.viem.deployContract("MockCAP20", []);
       console.log(`✅ MockCAP20: ${contracts.mockCAP20.address}`);
       deploymentInfo.contracts.MockCAP20 = contracts.mockCAP20.address;
+
+      console.log("Deploying MockPSG...");
+      contracts.mockPSG = await hre.viem.deployContract("MockPSG", []);
+      console.log(`✅ MockPSG: ${contracts.mockPSG.address}`);
+      deploymentInfo.contracts.MockPSG = contracts.mockPSG.address;
+
+      console.log("Deploying MockFCB...");
+      contracts.mockFCB = await hre.viem.deployContract("MockFCB", []); 
+      console.log(`✅ MockFCB: ${contracts.mockFCB.address}`);
+      deploymentInfo.contracts.MockFCB = contracts.mockFCB.address;
+
+      console.log("Deploying MockOG...");
+      contracts.mockOG = await hre.viem.deployContract("MockOG", []);
+      console.log(`✅ MockOG: ${contracts.mockOG.address}`);
+      deploymentInfo.contracts.MockOG = contracts.mockOG.address;
+
+      console.log("Deploying MockUFC...");
+      contracts.mockUFC = await hre.viem.deployContract("MockUFC", []);
+      console.log(`✅ MockUFC: ${contracts.mockUFC.address}`);
+      deploymentInfo.contracts.MockUFC = contracts.mockUFC.address;
     }
 
     // Deploy DEX System
@@ -160,6 +180,54 @@ async function deployCompleteSystem(options = {}) {
       ]);
       console.log(`✅ FBT-WCHZ pair: ${fbtPairAddress}`);
       deploymentInfo.contracts.FBT_WCHZ_Pair = fbtPairAddress;
+
+      // Create PSG-WCHZ pair
+      await contracts.factory.write.createPair([
+        contracts.mockPSG.address,
+        contracts.mockWCHZ.address
+      ]);
+      const psgPairAddress = await contracts.factory.read.getPair([
+        contracts.mockPSG.address,
+        contracts.mockWCHZ.address
+      ]);
+      console.log(`✅ PSG-WCHZ pair: ${psgPairAddress}`);
+      deploymentInfo.contracts.PSG_WCHZ_Pair = psgPairAddress;
+
+      // Create FCB-WCHZ pair
+      await contracts.factory.write.createPair([
+        contracts.mockFCB.address,
+        contracts.mockWCHZ.address
+      ]);
+      const fcbPairAddress = await contracts.factory.read.getPair([
+        contracts.mockFCB.address,
+        contracts.mockWCHZ.address
+      ]);
+      console.log(`✅ FCB-WCHZ pair: ${fcbPairAddress}`);
+      deploymentInfo.contracts.FCB_WCHZ_Pair = fcbPairAddress;
+
+      // Create OG-WCHZ pair
+      await contracts.factory.write.createPair([
+        contracts.mockOG.address,
+        contracts.mockWCHZ.address
+      ]);
+      const ogPairAddress = await contracts.factory.read.getPair([
+        contracts.mockOG.address,
+        contracts.mockWCHZ.address
+      ]);
+      console.log(`✅ OG-WCHZ pair: ${ogPairAddress}`);
+      deploymentInfo.contracts.OG_WCHZ_Pair = ogPairAddress;
+
+      // Create UFC-WCHZ pair
+      await contracts.factory.write.createPair([
+        contracts.mockUFC.address,
+        contracts.mockWCHZ.address
+      ]);
+      const ufcPairAddress = await contracts.factory.read.getPair([
+        contracts.mockUFC.address,
+        contracts.mockWCHZ.address
+      ]);
+      console.log(`✅ UFC-WCHZ pair: ${ufcPairAddress}`);
+      deploymentInfo.contracts.UFC_WCHZ_Pair = ufcPairAddress;
     }
 
     // ===========================================
@@ -227,6 +295,39 @@ async function deployCompleteSystem(options = {}) {
         config.liquidityTokens
       ], { account: deployer.account.address });
       console.log(`✅ Minted ${(config.liquidityTokens / BigInt(1e18)).toString()} MockWCHZ`);
+
+      // Mint fan tokens for liquidity
+      if (contracts.mockPSG) {
+        await contracts.mockPSG.write.mint([
+          deployer.account.address,
+          config.liquidityTokens
+        ], { account: deployer.account.address });
+        console.log(`✅ Minted ${(config.liquidityTokens / BigInt(1e18)).toString()} MockPSG`);
+      }
+
+      if (contracts.mockFCB) {
+        await contracts.mockFCB.write.mint([
+          deployer.account.address,
+          config.liquidityTokens
+        ], { account: deployer.account.address });
+        console.log(`✅ Minted ${(config.liquidityTokens / BigInt(1e18)).toString()} MockFCB`);
+      }
+
+      if (contracts.mockOG) {
+        await contracts.mockOG.write.mint([
+          deployer.account.address,
+          config.liquidityTokens
+        ], { account: deployer.account.address });
+        console.log(`✅ Minted ${(config.liquidityTokens / BigInt(1e18)).toString()} MockOG`);
+      }
+
+      if (contracts.mockUFC) {
+        await contracts.mockUFC.write.mint([
+          deployer.account.address,
+          config.liquidityTokens
+        ], { account: deployer.account.address });
+        console.log(`✅ Minted ${(config.liquidityTokens / BigInt(1e18)).toString()} MockUFC`);
+      }
     }
 
     // ===========================================

@@ -1,0 +1,101 @@
+{
+  "network": "hardhat",
+  "chainId": 31337,
+  "deployer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+  "timestamp": "2025-07-12T20:24:57.093Z",
+  "config": {
+    "name": "Hardhat Local",
+    "fbtToken": {
+      "name": "Platform Fan Base Token",
+      "symbol": "PFBT",
+      "entityName": "Platform Entity",
+      "entityType": "entertainment",
+      "description": "Official platform fan token for entertainment entities"
+    },
+    "stakingPools": [
+      {
+        "name": "30 Days Lock",
+        "duration": 2592000,
+        "apy": 500
+      },
+      {
+        "name": "90 Days Lock",
+        "duration": 7776000,
+        "apy": 1500
+      },
+      {
+        "name": "1 Year Lock",
+        "duration": 31536000,
+        "apy": 3000
+      }
+    ],
+    "prizes": [
+      {
+        "name": "Platform T-Shirt",
+        "description": "Official platform branded t-shirt",
+        "category": 0,
+        "cost": "50000000000000000000",
+        "supply": 100,
+        "unlimited": false
+      },
+      {
+        "name": "VIP Access Pass",
+        "description": "VIP access to exclusive platform events",
+        "category": 1,
+        "cost": "500000000000000000000",
+        "supply": 50,
+        "unlimited": false
+      }
+    ],
+    "initialMint": "10000000000000000000000",
+    "liquidityTokens": "1000000000000000000000000"
+  },
+  "contracts": {
+    "MockWCHZ": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+    "MockCAP20": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+    "UniswapV2Factory": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+    "UniswapV2Router02": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+    "FBTToken": "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
+    "FBTStakingVault": "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
+    "PrizeRedemption": "0x0165878a594ca255338adfa4d48449f69242eb8f",
+    "CAP20_WCHZ_Pair": "0x37E39470D68883Ea7bDA12d0EB93ce3775e657bF",
+    "FBT_WCHZ_Pair": "0x47176D1148E7f35161a436756233b1Ff9C173C24"
+  },
+  "stakingPools": [
+    {
+      "name": "30 Days Lock",
+      "duration": 2592000,
+      "apy": 500
+    },
+    {
+      "name": "90 Days Lock",
+      "duration": 7776000,
+      "apy": 1500
+    },
+    {
+      "name": "1 Year Lock",
+      "duration": 31536000,
+      "apy": 3000
+    }
+  ],
+  "prizes": [
+    {
+      "name": "Platform T-Shirt",
+      "description": "Official platform branded t-shirt",
+      "category": 0,
+      "cost": "50000000000000000000",
+      "supply": 100,
+      "unlimited": false
+    },
+    {
+      "name": "VIP Access Pass",
+      "description": "VIP access to exclusive platform events",
+      "category": 1,
+      "cost": "500000000000000000000",
+      "supply": 50,
+      "unlimited": false
+    }
+  ],
+  "deploymentCost": "9526563225141319",
+  "finalBalance": "9999990473436774858681"
+}

@@ -1,0 +1,119 @@
+{
+  "network": "localhost",
+  "chainId": 31337,
+  "deployer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+  "timestamp": "2025-07-12T22:03:01.217Z",
+  "config": {
+    "name": "Hardhat Local",
+    "fbtToken": {
+      "name": "Platform Fan Token",
+      "symbol": "PFT",
+      "entityName": "Platform Entity",
+      "entityType": "entertainment",
+      "description": "Official platform fan token for entertainment entities"
+    },
+    "stakingPools": [
+      {
+        "name": "Monthly Lock",
+        "duration": 2592000,
+        "apy": 500
+      },
+      {
+        "name": "Quarterly Lock",
+        "duration": 7776000,
+        "apy": 1200
+      },
+      {
+        "name": "Semi-Annual Lock",
+        "duration": 15552000,
+        "apy": 2000
+      },
+      {
+        "name": "Annual Lock",
+        "duration": 31536000,
+        "apy": 3000
+      }
+    ],
+    "prizes": [
+      {
+        "name": "Premium Subscription",
+        "description": "1-year premium platform subscription",
+        "category": 2,
+        "cost": "50000000000000000000",
+        "supply": 0,
+        "unlimited": true
+      },
+      {
+        "name": "Exclusive Content Access",
+        "description": "Access to exclusive behind-the-scenes content",
+        "category": 2,
+        "cost": "25000000000000000000",
+        "supply": 0,
+        "unlimited": true
+      }
+    ],
+    "initialMint": "10000000000000000000000",
+    "liquidityTokens": "1000000000000000000000000"
+  },
+  "contracts": {
+    "MockWCHZ": "0xc5a5c42992decbae36851359345fe25997f5c42d",
+    "MockCAP20": "0x67d269191c92caf3cd7723f116c85e6e9bf55933",
+    "MockPSG": "0xe6e340d132b5f46d1e472debcd681b2abc16e57e",
+    "MockFCB": "0xc3e53f4d16ae77db1c982e75a937b9f60fe63690",
+    "MockOG": "0x84ea74d481ee0a5332c457a4d796187f6ba67feb",
+    "MockUFC": "0x9e545e3c0baab3e08cdfd552c960a1050f373042",
+    "UniswapV2Factory": "0xa82ff9afd8f496c3d6ac40e2a0f282e47488cfc9",
+    "UniswapV2Router02": "0x1613beb3b2c4f22ee086b2b38c1476a3ce7f78e8",
+    "FBTToken": "0x851356ae760d987e095750cceb3bc6014560891c",
+    "FBTStakingVault": "0xf5059a5d33d5853360d16c683c16e67980206f36",
+    "PrizeRedemption": "0x95401dc811bb5740090279ba06cfa8fcf6113778",
+    "CAP20_WCHZ_Pair": "0xb07F524F666Fac65a46F4bF0cf2c5e933879F06D",
+    "FBT_WCHZ_Pair": "0xc3E6724b6b653797732280CD08dB4065Be64a2b4",
+    "PSG_WCHZ_Pair": "0x775cAA8E7596f5AF77F436231b214Bca8e09Df36",
+    "FCB_WCHZ_Pair": "0xf900F7B046df3e0fC1b0888ed32CfF6F7934D793",
+    "OG_WCHZ_Pair": "0xc1DC605946254791ce1b160bc2fD731F0b293A72",
+    "UFC_WCHZ_Pair": "0xFC1D1932681F9078c1cC7AA90E0f8800FA502173"
+  },
+  "stakingPools": [
+    {
+      "name": "Monthly Lock",
+      "duration": 2592000,
+      "apy": 500
+    },
+    {
+      "name": "Quarterly Lock",
+      "duration": 7776000,
+      "apy": 1200
+    },
+    {
+      "name": "Semi-Annual Lock",
+      "duration": 15552000,
+      "apy": 2000
+    },
+    {
+      "name": "Annual Lock",
+      "duration": 31536000,
+      "apy": 3000
+    }
+  ],
+  "prizes": [
+    {
+      "name": "Premium Subscription",
+      "description": "1-year premium platform subscription",
+      "category": 2,
+      "cost": "50000000000000000000",
+      "supply": 0,
+      "unlimited": true
+    },
+    {
+      "name": "Exclusive Content Access",
+      "description": "Access to exclusive behind-the-scenes content",
+      "category": 2,
+      "cost": "25000000000000000000",
+      "supply": 0,
+      "unlimited": true
+    }
+  ],
+  "deploymentCost": "269776530154978",
+  "finalBalance": "9999991379391279658507"
+}
