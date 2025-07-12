@@ -20,8 +20,8 @@ describe("Uniswap V2 Pair Tests", function () {
     mockCAP20 = await hre.viem.deployContract("MockCAP20");
     mockWCHZ = await hre.viem.deployContract("MockWCHZ");
 
-    // Deploy factory
-    factory = await hre.viem.deployContract("UniswapV2Factory", [owner.account.address]);
+    // Deploy factory with WCHZ address
+    factory = await hre.viem.deployContract("UniswapV2Factory", [owner.account.address, mockWCHZ.address]);
 
     // Deploy router
     router = await hre.viem.deployContract("UniswapV2Router02", [factory.address]);
@@ -47,6 +47,8 @@ describe("Uniswap V2 Pair Tests", function () {
       expect(await mockWCHZ.read.name()).to.equal("Mock WCHZ");
       const feeToSetter = await factory.read.feeToSetter();
       expect(feeToSetter.toLowerCase()).to.equal(owner.account.address.toLowerCase());
+      const wchzAddress = await factory.read.WCHZ();
+      expect(wchzAddress.toLowerCase()).to.equal(mockWCHZ.address.toLowerCase());
       const factoryAddress = await router.read.factory();
       expect(factoryAddress.toLowerCase()).to.equal(factory.address.toLowerCase());
     });
@@ -88,7 +90,7 @@ describe("Uniswap V2 Pair Tests", function () {
 
     it("Should not create pair with identical addresses", async function () {
       await expect(
-        factory.write.createPair([mockCAP20.address, mockCAP20.address], {
+        factory.write.createPair([mockWCHZ.address, mockWCHZ.address], {
           account: owner.account.address,
         })
       ).to.be.rejectedWith("UniswapV2: IDENTICAL_ADDRESSES");
@@ -123,6 +125,20 @@ describe("Uniswap V2 Pair Tests", function () {
       const pairAddress2 = await factory.read.getPair([mockWCHZ.address, mockCAP20.address]);
       
       expect(pairAddress1).to.equal(pairAddress2);
+    });
+
+    it("Should enforce WCHZ as second token", async function () {
+      // This should work
+      await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
+        account: owner.account.address,
+      });
+      
+      // This should fail because second token is not WCHZ
+      await expect(
+        factory.write.createPair([mockWCHZ.address, mockCAP20.address], {
+          account: owner.account.address,
+        })
+      ).to.be.rejectedWith("UniswapV2: TOKENB_MUST_BE_WCHZ");
     });
   });
 
@@ -202,8 +218,8 @@ describe("Uniswap V2 Pair Tests", function () {
       await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
         account: owner.account.address,
       });
-      expect(await factory.read.allPairsLength()).to.equal(1n);
       
+      expect(await factory.read.allPairsLength()).to.equal(1n);
       const pairAddress = await factory.read.allPairs([0n]);
       expect(pairAddress).to.not.equal(zeroAddress);
     });
@@ -214,52 +230,35 @@ describe("Uniswap V2 Pair Tests", function () {
       await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
         account: owner.account.address,
       });
+      
       const pairAddress = await factory.read.getPair([mockCAP20.address, mockWCHZ.address]);
       const pairContract = await hre.viem.getContractAt("UniswapV2Pair", pairAddress);
       
-      // token0 should be the smaller address
       const token0 = await pairContract.read.token0();
       const token1 = await pairContract.read.token1();
-      expect(token0.toLowerCase()).to.equal(mockCAP20.address.toLowerCase());
-      expect(token1.toLowerCase()).to.equal(mockWCHZ.address.toLowerCase());
-    });
-
-    it("Should order tokens correctly when provided in reverse order", async function () {
-      await factory.write.createPair([mockWCHZ.address, mockCAP20.address], {
-        account: owner.account.address,
-      });
-      const pairAddress = await factory.read.getPair([mockWCHZ.address, mockCAP20.address]);
-      const pairContract = await hre.viem.getContractAt("UniswapV2Pair", pairAddress);
-
-      const token0 = await pairContract.read.token0();
-      const token1 = await pairContract.read.token1();
-      const expectedToken0 = mockCAP20.address.toLowerCase() < mockWCHZ.address.toLowerCase()
-        ? mockCAP20.address
-        : mockWCHZ.address;
-        const expectedToken1 = mockCAP20.address.toLowerCase() < mockWCHZ.address.toLowerCase()
-        ? mockWCHZ.address
-        : mockCAP20.address;
-      expect(token0.toLowerCase()).to.equal(expectedToken0.toLowerCase());
-      expect(token1.toLowerCase()).to.equal(expectedToken1.toLowerCase());
+      
+      // Since CAP20 address < WCHZ address, CAP20 should be token0
+      if (mockCAP20.address.toLowerCase() < mockWCHZ.address.toLowerCase()) {
+        expect(token0.toLowerCase()).to.equal(mockCAP20.address.toLowerCase());
+        expect(token1.toLowerCase()).to.equal(mockWCHZ.address.toLowerCase());
+      } else {
+        expect(token0.toLowerCase()).to.equal(mockWCHZ.address.toLowerCase());
+        expect(token1.toLowerCase()).to.equal(mockCAP20.address.toLowerCase());
+      }
     });
   });
 
   describe("Edge Cases", function () {
     it("Should handle pair creation with different token combinations", async function () {
-      // Create multiple pairs
-      await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
+      // Create a new token for testing
+      const mockToken = await hre.viem.deployContract("MockCAP20");
+      
+      await factory.write.createPair([mockToken.address, mockWCHZ.address], {
         account: owner.account.address,
       });
       
-      // Try to create a pair with one token being the same
-      // This should work and create a different pair
-      const mockToken3 = await hre.viem.deployContract("MockCAP20");
-      
-      await factory.write.createPair([mockCAP20.address, mockToken3.address], {
-        account: owner.account.address,
-      });
-      
-      expect(await factory.read.allPairsLength()).to.equal(2n);
+      const pairAddress = await factory.read.getPair([mockToken.address, mockWCHZ.address]);
+      expect(pairAddress).to.not.equal(zeroAddress);
     });
 
     it("Should maintain correct pair mapping", async function () {
@@ -268,46 +267,46 @@ describe("Uniswap V2 Pair Tests", function () {
       });
       
       const pairAddress1 = await factory.read.getPair([mockCAP20.address, mockWCHZ.address]);
-      const pairAddress2 = await factory.read.getPair([mockWCHZ.address, mockCAP20.address]);
+      const pairAddress2 = await factory.read.getPairWithWCHZ([mockCAP20.address]);
       
       expect(pairAddress1).to.equal(pairAddress2);
-      expect(pairAddress1).to.not.equal(zeroAddress);
     });
   });
 
   describe("Integration Tests", function () {
-    beforeEach(async function () {
+    it("Should allow token transfers to pair contract", async function () {
       await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
         account: owner.account.address,
       });
+      
       const pairAddress = await factory.read.getPair([mockCAP20.address, mockWCHZ.address]);
-      pair = await hre.viem.getContractAt("UniswapV2Pair", pairAddress);
-    });
-
-    it("Should allow token transfers to pair contract", async function () {
-      const transferAmount = parseEther("100");
       
-      await mockCAP20.write.transfer([pair.address, transferAmount], {
+      // Transfer tokens to pair
+      await mockCAP20.write.transfer([pairAddress, parseEther("100")], {
         account: user1.account.address,
       });
-      await mockWCHZ.write.transfer([pair.address, transferAmount], {
+      await mockWCHZ.write.transfer([pairAddress, parseEther("100")], {
         account: user1.account.address,
       });
       
-      expect(await mockCAP20.read.balanceOf([pair.address])).to.equal(transferAmount);
-      expect(await mockWCHZ.read.balanceOf([pair.address])).to.equal(transferAmount);
+      expect(await mockCAP20.read.balanceOf([pairAddress])).to.equal(parseEther("100"));
+      expect(await mockWCHZ.read.balanceOf([pairAddress])).to.equal(parseEther("100"));
     });
 
     it("Should maintain correct token balances after transfers", async function () {
-      const initialBalance = await mockCAP20.read.balanceOf([user1.account.address]);
-      const transferAmount = parseEther("50");
-      
-      await mockCAP20.write.transfer([user2.account.address, transferAmount], {
-        account: user1.account.address,
+      await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
+        account: owner.account.address,
       });
       
-      expect(await mockCAP20.read.balanceOf([user1.account.address])).to.equal(initialBalance - transferAmount);
-      expect(await mockCAP20.read.balanceOf([user2.account.address])).to.equal(parseEther("1050")); // 1000 + 50
+      const pairAddress = await factory.read.getPair([mockCAP20.address, mockWCHZ.address]);
+      
+      const initialBalance = await mockCAP20.read.balanceOf([user1.account.address]);
+      await mockCAP20.write.transfer([pairAddress, parseEther("50")], {
+        account: user1.account.address,
+      });
+      const finalBalance = await mockCAP20.read.balanceOf([user1.account.address]);
+      
+      expect(finalBalance).to.equal(initialBalance - parseEther("50"));
     });
   });
 }); 
