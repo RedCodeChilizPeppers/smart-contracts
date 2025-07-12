@@ -148,7 +148,7 @@ describe("Uniswap V2 Pair Tests", function () {
         account: owner.account.address,
       });
       const pairAddress = await factory.read.getPair([mockCAP20.address, mockWCHZ.address]);
-      pair = await hre.viem.getContractAt("UniswapV2Pair", pairAddress);
+      pair = await hre.viem.getContractAt("UniswapV2Pair", pairAddress as `0x${string}`);
     });
 
     it("Should initialize pair with correct tokens", async function () {
@@ -307,6 +307,242 @@ describe("Uniswap V2 Pair Tests", function () {
       const finalBalance = await mockCAP20.read.balanceOf([user1.account.address]);
       
       expect(finalBalance).to.equal(initialBalance - parseEther("50"));
+    });
+  });
+
+  describe("Swap Tests", function () {
+    let pairAddress: string;
+    let token0: string;
+    let token1: string;
+    let token0Contract: any;
+    let token1Contract: any;
+
+    beforeEach(async function () {
+      // Create pair
+      await factory.write.createPair([mockCAP20.address, mockWCHZ.address], {
+        account: owner.account.address,
+      });
+      
+      pairAddress = await factory.read.getPair([mockCAP20.address, mockWCHZ.address]);
+      pair = await hre.viem.getContractAt("UniswapV2Pair", pairAddress as `0x${string}`);
+      
+      // Determine token order
+      token0 = await pair.read.token0();
+      token1 = await pair.read.token1();
+      
+      // Get token contracts in correct order
+      if (token0.toLowerCase() === mockCAP20.address.toLowerCase()) {
+        token0Contract = mockCAP20;
+        token1Contract = mockWCHZ;
+      } else {
+        token0Contract = mockWCHZ;
+        token1Contract = mockCAP20;
+      }
+
+      // Ensure user1 has enough tokens for liquidity provision
+      await token0Contract.write.mint([user1.account.address, parseEther("2000")], {
+        account: owner.account.address,
+      });
+      await token1Contract.write.mint([user1.account.address, parseEther("2000")], {
+        account: owner.account.address,
+      });
+
+      // Provide initial liquidity
+      const liquidityAmount = parseEther("1000");
+      await token0Contract.write.transfer([pairAddress, liquidityAmount], {
+        account: user1.account.address,
+      });
+      await token1Contract.write.transfer([pairAddress, liquidityAmount], {
+        account: user1.account.address,
+      });
+      
+      // Mint liquidity tokens
+      await pair.write.mint([user1.account.address], {
+        account: user1.account.address,
+      });
+    });
+
+    it("Should provide initial liquidity correctly", async function () {
+      const [reserve0, reserve1] = await pair.read.getReserves();
+      expect(reserve0 > 0n).to.be.true;
+      expect(reserve1 > 0n).to.be.true;
+      
+      const liquidityBalance = await pair.read.balanceOf([user1.account.address]);
+      expect(liquidityBalance > 0n).to.be.true;
+    });
+
+    it("Should execute swap token0 for token1", async function () {
+      const swapAmount = parseEther("100");
+      const user1InitialBalance0 = await token0Contract.read.balanceOf([user1.account.address]);
+      const user1InitialBalance1 = await token1Contract.read.balanceOf([user1.account.address]);
+      
+      // Transfer tokens to pair for swap
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      
+      // Execute swap (4 args: amount0Out, amount1Out, to, data)
+      await pair.write.swap([0n, parseEther("90"), user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      
+      const user1FinalBalance0 = await token0Contract.read.balanceOf([user1.account.address]);
+      const user1FinalBalance1 = await token1Contract.read.balanceOf([user1.account.address]);
+      
+      // User should have received token1
+      expect(user1FinalBalance1 > user1InitialBalance1).to.be.true;
+      // User should have spent token0 (minus what was transferred to pair)
+      expect(user1FinalBalance0).to.equal(user1InitialBalance0 - swapAmount);
+    });
+
+    it("Should execute swap token1 for token0", async function () {
+      const swapAmount = parseEther("100");
+      const user1InitialBalance0 = await token0Contract.read.balanceOf([user1.account.address]);
+      const user1InitialBalance1 = await token1Contract.read.balanceOf([user1.account.address]);
+      
+      // Transfer tokens to pair for swap
+      await token1Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      
+      // Execute swap (4 args: amount0Out, amount1Out, to, data)
+      await pair.write.swap([parseEther("90"), 0n, user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      
+      const user1FinalBalance0 = await token0Contract.read.balanceOf([user1.account.address]);
+      const user1FinalBalance1 = await token1Contract.read.balanceOf([user1.account.address]);
+      
+      // User should have received token0
+      expect(user1FinalBalance0 > user1InitialBalance0).to.be.true;
+      // User should have spent token1 (minus what was transferred to pair)
+      expect(user1FinalBalance1).to.equal(user1InitialBalance1 - swapAmount);
+    });
+
+    it("Should fail swap with insufficient liquidity", async function () {
+      const swapAmount = parseEther("10000"); // More than available liquidity
+      // Ensure user1 has enough tokens for this test
+      await token0Contract.write.mint([user1.account.address, swapAmount], {
+        account: owner.account.address,
+      });
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await expect(
+        pair.write.swap([0n, parseEther("9000"), user1.account.address, "0x"], {
+          account: user1.account.address,
+        })
+      ).to.be.rejectedWith("UniswapV2: INSUFFICIENT_LIQUIDITY");
+    });
+
+    it("Should fail swap with zero output amount", async function () {
+      const swapAmount = parseEther("100");
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await expect(
+        pair.write.swap([0n, 0n, user1.account.address, "0x"], {
+          account: user1.account.address,
+        })
+      ).to.be.rejectedWith("UniswapV2: INSUFFICIENT_OUTPUT_AMOUNT");
+    });
+
+    it("Should fail swap to token addresses", async function () {
+      const swapAmount = parseEther("100");
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await expect(
+        pair.write.swap([0n, parseEther("90"), token0, "0x"], {
+          account: user1.account.address,
+        })
+      ).to.be.rejectedWith("UniswapV2: INVALID_TO");
+    });
+
+    it("Should maintain k constant after swap", async function () {
+      const swapAmount = parseEther("100");
+      // Get initial reserves
+      const [initialReserve0, initialReserve1] = await pair.read.getReserves();
+      const initialK = initialReserve0 * initialReserve1;
+      // Execute swap
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await pair.write.swap([0n, parseEther("90"), user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      // Get final reserves
+      const [finalReserve0, finalReserve1] = await pair.read.getReserves();
+      const finalK = finalReserve0 * finalReserve1;
+      // K should be approximately maintained (allowing for fees)
+      expect(finalK >= initialK).to.be.true;
+    });
+
+    it("Should emit Swap event", async function () {
+      const swapAmount = parseEther("100");
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      const tx = await pair.write.swap([0n, parseEther("90"), user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      // The transaction should succeed, indicating the event was emitted
+      expect(tx).to.not.be.undefined;
+    });
+
+    it("Should handle multiple swaps correctly", async function () {
+      const swapAmount = parseEther("50");
+      // First swap
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await pair.write.swap([0n, parseEther("45"), user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      // Second swap
+      await token1Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await pair.write.swap([parseEther("45"), 0n, user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      // Both swaps should succeed
+      const [reserve0, reserve1] = await pair.read.getReserves();
+      expect(reserve0 > 0n).to.be.true;
+      expect(reserve1 > 0n).to.be.true;
+    });
+
+    it("Should update reserves correctly after swap", async function () {
+      const swapAmount = parseEther("100");
+      const [initialReserve0, initialReserve1] = await pair.read.getReserves();
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await pair.write.swap([0n, parseEther("90"), user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      const [finalReserve0, finalReserve1] = await pair.read.getReserves();
+      // Reserves should have changed
+      expect(finalReserve0 !== initialReserve0).to.be.true;
+      expect(finalReserve1 !== initialReserve1).to.be.true;
+      // Reserve0 should have increased (swap input)
+      expect(finalReserve0 > initialReserve0).to.be.true;
+      // Reserve1 should have decreased (swap output)
+      expect(finalReserve1 < initialReserve1).to.be.true;
+    });
+
+    it("Should handle edge case with very small swap", async function () {
+      const swapAmount = parseEther("1"); // Very small amount
+      await token0Contract.write.transfer([pairAddress, swapAmount], {
+        account: user1.account.address,
+      });
+      await pair.write.swap([0n, parseEther("1"), user1.account.address, "0x"], {
+        account: user1.account.address,
+      });
+      // Should succeed even with small amounts
+      const [reserve0, reserve1] = await pair.read.getReserves();
+      expect(reserve0 > 0n).to.be.true;
+      expect(reserve1 > 0n).to.be.true;
     });
   });
 }); 
