@@ -2,7 +2,7 @@
 pragma solidity 0.8.23;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "../../FBTToken.sol";
+import "../FBTToken.sol";
 
 /**
  * @title PrizeRedemption
