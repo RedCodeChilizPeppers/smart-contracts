@@ -13,12 +13,12 @@ const config: HardhatUserConfig = {
       chainId: 31337,
     },
     spicy: {
-      url: SPICY_RPC,
+      url: SPICY_RPC || "https://spicy-rpc.chiliz.com/",
       chainId: 1777,
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
     mainnet: {
-      url: MAINNET_RPC,
+      url: MAINNET_RPC || "https://rpc.chiliz.com/",
       chainId: 212,
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },

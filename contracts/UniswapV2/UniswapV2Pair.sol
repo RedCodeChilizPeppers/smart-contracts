@@ -12,6 +12,7 @@ contract UniswapV2Pair is UniswapV2ERC20 {
     using Math for uint;
     using UQ112x112 for uint224;
 
+    uint public constant MINIMUM_LIQUIDITY = 10**3;
     address public factory;
     address public token0;
     address public token1;
@@ -108,7 +109,10 @@ contract UniswapV2Pair is UniswapV2ERC20 {
         bool feeOn = _mintFee(_reserve0, _reserve1);
         uint _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
         if (_totalSupply == 0) {
-            liquidity = Math.sqrt(amount0 * amount1) - 1000;
+            liquidity = Math.sqrt(amount0 * amount1);
+            require(liquidity > MINIMUM_LIQUIDITY, 'UniswapV2: INSUFFICIENT_LIQUIDITY_MINTED');
+            liquidity = liquidity - MINIMUM_LIQUIDITY;
+            _mint(address(0), MINIMUM_LIQUIDITY); // permanently lock the first MINIMUM_LIQUIDITY tokens
         } else {
             liquidity = Math.min((amount0 * _totalSupply) / _reserve0, (amount1 * _totalSupply) / _reserve1);
         }
