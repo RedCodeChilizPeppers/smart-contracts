@@ -1,0 +1,94 @@
+{
+  "network": "spicy",
+  "deployer": "0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c",
+  "timestamp": "2025-07-13T07:49:53.564Z",
+  "coreContracts": {
+    "factory": "0x35ba66e5206bafa67f30fa196cf850b614fd0051",
+    "router": "0x18b1e8ab423e5cafd3571277cad660fd6b247f72",
+    "mockWCHZ": "0x53faeb02043ba28fa12db89e120b4370355f62a5"
+  },
+  "liquidityPools": [
+    {
+      "name": "Lionel Messi",
+      "symbol": "MESSI",
+      "tokenAddress": "0xc1c97fea09eba222e3577d82e991684db9bd1c14",
+      "status": "failed",
+      "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nRequest Arguments:\n  from:  0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n  to:    0x53faeb02043ba28fa12db89e120b4370355f62a5\n  data:  0x095ea7b300000000000000000000000018b1e8ab423e5cafd3571277cad660fd6b247f7200000000000000000000000000000000000000000000010f0cf064dd59200000\n \nContract Call:\n  address:   0x53faeb02043ba28fa12db89e120b4370355f62a5\n  function:  approve(address spender, uint256 value)\n  args:             (0x18b1e8ab423e5cafd3571277cad660fd6b247f72, 5000000000000000000000)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nDetails: replacement transaction underpriced\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "symbol": "CR7",
+      "tokenAddress": "0x3ccd179315cfe53b1e81e9936d1df09dea34d557",
+      "status": "failed",
+      "error": "The contract function \"addLiquidity\" reverted with the following signature:\n0xfb8f41b2\n\nUnable to decode signature \"0xfb8f41b2\" as it was not found on the provided ABI.\nMake sure you are using the correct ABI and that the error exists on it.\nYou can look up the decoded signature here: https://openchain.xyz/signatures?query=0xfb8f41b2.\n \nContract Call:\n  address:   0x18b1e8ab423e5cafd3571277cad660fd6b247f72\n  function:  addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)\n  args:                  (0x3ccd179315cfe53b1e81e9936d1df09dea34d557, 0x53faeb02043ba28fa12db89e120b4370355f62a5, 40000000000000000000000, 5000000000000000000000, 36000000000000000000000, 4500000000000000000000, 0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 1752394794)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/decodeErrorResult\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Taylor Swift",
+      "symbol": "SWIFTIE",
+      "tokenAddress": "0x89f8f9dd2e11f212da17214458c4534b409740d3",
+      "status": "failed",
+      "error": "The contract function \"addLiquidity\" reverted with the following signature:\n0xfb8f41b2\n\nUnable to decode signature \"0xfb8f41b2\" as it was not found on the provided ABI.\nMake sure you are using the correct ABI and that the error exists on it.\nYou can look up the decoded signature here: https://openchain.xyz/signatures?query=0xfb8f41b2.\n \nContract Call:\n  address:   0x18b1e8ab423e5cafd3571277cad660fd6b247f72\n  function:  addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)\n  args:                  (0x89f8f9dd2e11f212da17214458c4534b409740d3, 0x53faeb02043ba28fa12db89e120b4370355f62a5, 20000000000000000000000, 5000000000000000000000, 18000000000000000000000, 4500000000000000000000, 0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 1752394795)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/decodeErrorResult\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "The Rock",
+      "symbol": "ROCK",
+      "tokenAddress": "0x531a9db153f58102b0d734a5b90d2d104060e855",
+      "status": "failed",
+      "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nRequest Arguments:\n  from:  0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n  to:    0x531a9db153f58102b0d734a5b90d2d104060e855\n  data:  0xd3fc9864000000000000000000000000e464fdf79897f541e2d054e9dee70ae5c5c8d64c00000000000000000000000000000000000000000000054b40b1f852bda000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000d6465785f6c697175696469747900000000000000000000000000000000000000\n \nContract Call:\n  address:   0x531a9db153f58102b0d734a5b90d2d104060e855\n  function:  mint(address to, uint256 amount, string reason)\n  args:          (0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 25000000000000000000000, dex_liquidity)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nDetails: replacement transaction underpriced\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Neymar Jr",
+      "symbol": "NJF",
+      "tokenAddress": "0x97770398829b9953df45a420a5402f45a156d7fb",
+      "status": "failed",
+      "error": "The contract function \"addLiquidity\" reverted with the following signature:\n0xfb8f41b2\n\nUnable to decode signature \"0xfb8f41b2\" as it was not found on the provided ABI.\nMake sure you are using the correct ABI and that the error exists on it.\nYou can look up the decoded signature here: https://openchain.xyz/signatures?query=0xfb8f41b2.\n \nContract Call:\n  address:   0x18b1e8ab423e5cafd3571277cad660fd6b247f72\n  function:  addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)\n  args:                  (0x97770398829b9953df45a420a5402f45a156d7fb, 0x53faeb02043ba28fa12db89e120b4370355f62a5, 100000000000000000000000, 5000000000000000000000, 90000000000000000000000, 4500000000000000000000, 0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 1752394796)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/decodeErrorResult\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Lewis Hamilton",
+      "symbol": "LH44",
+      "tokenAddress": "0xb16045f22f511e9ab61f571a53679682936c519f",
+      "status": "failed",
+      "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nRequest Arguments:\n  from:  0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n  to:    0x53faeb02043ba28fa12db89e120b4370355f62a5\n  data:  0x095ea7b300000000000000000000000018b1e8ab423e5cafd3571277cad660fd6b247f7200000000000000000000000000000000000000000000010f0cf064dd59200000\n \nContract Call:\n  address:   0x53faeb02043ba28fa12db89e120b4370355f62a5\n  function:  approve(address spender, uint256 value)\n  args:             (0x18b1e8ab423e5cafd3571277cad660fd6b247f72, 5000000000000000000000)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nDetails: replacement transaction underpriced\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Serena Williams",
+      "symbol": "SERENA",
+      "tokenAddress": "0xf03d323c83d2646e9a45ad88635c6a93a4eb83ca",
+      "status": "failed",
+      "error": "The contract function \"addLiquidity\" reverted with the following signature:\n0xfb8f41b2\n\nUnable to decode signature \"0xfb8f41b2\" as it was not found on the provided ABI.\nMake sure you are using the correct ABI and that the error exists on it.\nYou can look up the decoded signature here: https://openchain.xyz/signatures?query=0xfb8f41b2.\n \nContract Call:\n  address:   0x18b1e8ab423e5cafd3571277cad660fd6b247f72\n  function:  addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)\n  args:                  (0xf03d323c83d2646e9a45ad88635c6a93a4eb83ca, 0x53faeb02043ba28fa12db89e120b4370355f62a5, 41667000000000000000000, 5000000000000000000000, 37500300000000000000000, 4500000000000000000000, 0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 1752394797)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/decodeErrorResult\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Kylie Jenner",
+      "symbol": "KYLIE",
+      "tokenAddress": "0x53b8275f6890f8137f00efc71d543a7c9a9c60de",
+      "status": "failed",
+      "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nRequest Arguments:\n  from:  0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n  to:    0x53faeb02043ba28fa12db89e120b4370355f62a5\n  data:  0x095ea7b300000000000000000000000018b1e8ab423e5cafd3571277cad660fd6b247f7200000000000000000000000000000000000000000000010f0cf064dd59200000\n \nContract Call:\n  address:   0x53faeb02043ba28fa12db89e120b4370355f62a5\n  function:  approve(address spender, uint256 value)\n  args:             (0x18b1e8ab423e5cafd3571277cad660fd6b247f72, 5000000000000000000000)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nDetails: replacement transaction underpriced\nVersion: viem@2.31.7"
+    },
+    {
+      "name": "Stephen Curry",
+      "symbol": "CURRY",
+      "tokenAddress": "0x488ec4c3220144dd5c33e732f20365c09c96e600",
+      "status": "failed",
+      "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nRequest Arguments:\n  from:  0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n  to:    0x488ec4c3220144dd5c33e732f20365c09c96e600\n  data:  0x095ea7b300000000000000000000000018b1e8ab423e5cafd3571277cad660fd6b247f720000000000000000000000000000000000000000000008250779839722380000\n \nContract Call:\n  address:   0x488ec4c3220144dd5c33e732f20365c09c96e600\n  function:  approve(address spender, uint256 value)\n  args:             (0x18b1e8ab423e5cafd3571277cad660fd6b247f72, 38462000000000000000000)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nDetails: replacement transaction underpriced\nVersion: viem@2.31.7"
+    }
+  ],
+  "summary": {
+    "totalPools": 9,
+    "successfulPools": 0,
+    "failedPools": 9,
+    "totalLiquidityValueCHZ": 0,
+    "features": [
+      "✅ Trading pairs created for all celebrity tokens",
+      "✅ Initial liquidity provided for immediate trading",
+      "✅ Diverse exchange rates for different token values",
+      "✅ LP tokens issued to liquidity provider",
+      "✅ Ready for swapping and arbitrage opportunities"
+    ]
+  },
+  "tradingInstructions": {
+    "swapping": "Use UniswapV2Router02.swapExactTokensForTokens() to trade",
+    "addingLiquidity": "Use UniswapV2Router02.addLiquidity() to provide more liquidity",
+    "removingLiquidity": "Use UniswapV2Router02.removeLiquidity() to withdraw",
+    "priceDiscovery": "Check current reserves with UniswapV2Pair.getReserves()"
+  }
+}

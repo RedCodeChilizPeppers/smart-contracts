@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-07-13T09:09:23.280Z",
+  "liquidityPools": {
+    "MESSI": {
+      "tokenAddress": "0x7f3ea311c2be7717f5e8dc259803a2ea329055f1",
+      "error": "The contract function \"mint\" reverted with the following reason:\nUniswapV2: INSUFFICIENT_LIQUIDITY_MINTED\n\nContract Call:\n  address:   0x4F4a5B546382257DA085B57C1727fe6B88eCD038\n  function:  mint(address to)\n  args:          (0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nVersion: viem@2.31.7",
+      "success": false
+    },
+    "SWIFT": {
+      "tokenAddress": "0x8bb943c5e942e685f316cb02204333e53470f233",
+      "error": "Pair address is zero - pair not created properly",
+      "success": false
+    },
+    "COLD": {
+      "tokenAddress": "0x0e0a27ac7c77cf5b699a0b98016fbe7bfca53503",
+      "error": "The contract function \"mint\" reverted with the following reason:\nUniswapV2: INSUFFICIENT_LIQUIDITY_MINTED\n\nContract Call:\n  address:   0xCaD4C170173BbcF7E2a89e0Ec0b4F65b94578252\n  function:  mint(address to)\n  args:          (0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nVersion: viem@2.31.7",
+      "success": false
+    }
+  }
+}

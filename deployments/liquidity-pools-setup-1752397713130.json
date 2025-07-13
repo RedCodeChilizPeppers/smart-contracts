@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-07-13T09:08:31.014Z",
+  "liquidityPools": {
+    "MESSI": {
+      "name": "Lionel Messi",
+      "tokenAddress": "0x7f3ea311c2be7717f5e8dc259803a2ea329055f1",
+      "error": "The contract function \"addLiquidity\" reverted with the following signature:\n0xfb8f41b2\n\nUnable to decode signature \"0xfb8f41b2\" as it was not found on the provided ABI.\nMake sure you are using the correct ABI and that the error exists on it.\nYou can look up the decoded signature here: https://openchain.xyz/signatures?query=0xfb8f41b2.\n \nContract Call:\n  address:   0x8156751945c3f07ac881559f4c313629cf7b247d\n  function:  addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)\n  args:                  (0x7f3ea311c2be7717f5e8dc259803a2ea329055f1, 0xfcb54f81d0eb426356c05a85817ab9edcbbc824c, 100000000000000000000000, 1000000000000000000000, 0, 0, 0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 1752398911)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/decodeErrorResult\nVersion: viem@2.31.7",
+      "success": false
+    },
+    "SWIFT": {
+      "name": "Taylor Swift",
+      "tokenAddress": "0x8bb943c5e942e685f316cb02204333e53470f233",
+      "error": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nRequest Arguments:\n  from:  0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n  to:    0x0d1bf679630a640e87291977a46085852e066dde\n  data:  0x3c1dee1e0000000000000000000000008bb943c5e942e685f316cb02204333e53470f233\n \nContract Call:\n  address:   0x0d1bf679630a640e87291977a46085852e066dde\n  function:  createPairWithWCHZ(address tokenA)\n  args:                        (0x8bb943c5e942e685f316cb02204333e53470f233)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/writeContract\nDetails: replacement transaction underpriced\nVersion: viem@2.31.7",
+      "success": false
+    },
+    "COLD": {
+      "name": "Coldplay",
+      "tokenAddress": "0x0e0a27ac7c77cf5b699a0b98016fbe7bfca53503",
+      "error": "The contract function \"addLiquidity\" reverted with the following signature:\n0xfb8f41b2\n\nUnable to decode signature \"0xfb8f41b2\" as it was not found on the provided ABI.\nMake sure you are using the correct ABI and that the error exists on it.\nYou can look up the decoded signature here: https://openchain.xyz/signatures?query=0xfb8f41b2.\n \nContract Call:\n  address:   0x8156751945c3f07ac881559f4c313629cf7b247d\n  function:  addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)\n  args:                  (0x0e0a27ac7c77cf5b699a0b98016fbe7bfca53503, 0xfcb54f81d0eb426356c05a85817ab9edcbbc824c, 100000000000000000000000, 1000000000000000000000, 0, 0, 0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c, 1752398913)\n  sender:    0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c\n\nDocs: https://viem.sh/docs/contract/decodeErrorResult\nVersion: viem@2.31.7",
+      "success": false
+    }
+  }
+}

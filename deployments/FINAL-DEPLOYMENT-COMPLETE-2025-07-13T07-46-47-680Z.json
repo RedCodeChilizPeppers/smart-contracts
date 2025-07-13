@@ -1,0 +1,323 @@
+{
+  "deploymentInfo": {
+    "network": "spicy",
+    "chainId": 88882,
+    "deployer": "0xe464fdf79897f541e2d054e9dee70ae5c5c8d64c",
+    "timestamp": "2025-07-13T07:46:47.679Z",
+    "finalBalance": "40.5956927030625",
+    "deploymentType": "complete-platform"
+  },
+  "coreContracts": {
+    "description": "Core platform infrastructure for celebrity crowdfunding",
+    "contracts": {
+      "mockWCHZ": "0x53faeb02043ba28fa12db89e120b4370355f62a5",
+      "mockCAP20": "0xc5369fd9e1a5467e80c99e3fef33bca3565e559c",
+      "factory": "0x35ba66e5206bafa67f30fa196cf850b614fd0051",
+      "router": "0x18b1e8ab423e5cafd3571277cad660fd6b247f72"
+    },
+    "features": [
+      "MockWCHZ - Wrapped CHZ token for testing",
+      "MockCAP20 - Base ERC20 token for platform operations",
+      "UniswapV2Factory - DEX factory for creating trading pairs",
+      "UniswapV2Router02 - DEX router for token swaps and liquidity"
+    ]
+  },
+  "celebrityEcosystems": [
+    {
+      "id": 1,
+      "name": "Lionel Messi",
+      "symbol": "MESSI",
+      "type": "sportsTeam",
+      "description": "Official fan token for Lionel Messi's football academy project",
+      "contracts": {
+        "fbtToken": "0xc1c97fea09eba222e3577d82e991684db9bd1c14",
+        "stakingVault": "0x50c304b64b4ecdfc07a482517cf6294f22c88fe1",
+        "prizeRedemption": "0x304b2ed3e14096ac131e22a14a1b0100850380b3",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0xc1c97fea09eba222e3577d82e991684db9bd1c14",
+        "staking": "https://spicy-explorer.chiliz.com/address/0x50c304b64b4ecdfc07a482517cf6294f22c88fe1",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0x304b2ed3e14096ac131e22a14a1b0100850380b3",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Cristiano Ronaldo",
+      "symbol": "CR7",
+      "type": "sportsTeam",
+      "description": "CR7 lifestyle brand expansion and fan engagement",
+      "contracts": {
+        "fbtToken": "0x3ccd179315cfe53b1e81e9936d1df09dea34d557",
+        "stakingVault": "0xd3774aea8618706de4c67b2b8b94659dd24c5a53",
+        "prizeRedemption": "0xb2effc0bdddcb48574ba44be84ff027deda2572a",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0x3ccd179315cfe53b1e81e9936d1df09dea34d557",
+        "staking": "https://spicy-explorer.chiliz.com/address/0xd3774aea8618706de4c67b2b8b94659dd24c5a53",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0xb2effc0bdddcb48574ba44be84ff027deda2572a",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Taylor Swift",
+      "symbol": "SWIFTIE",
+      "type": "musicArtist",
+      "description": "Taylor Swift re-recording project and exclusive content",
+      "contracts": {
+        "fbtToken": "0x89f8f9dd2e11f212da17214458c4534b409740d3",
+        "stakingVault": "0x589b5b8d25bc6a88b012ea64ab39b65e5ac0cf24",
+        "prizeRedemption": "0x610fa764ec8473a5d98604c2bf20c358822f892f",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0x89f8f9dd2e11f212da17214458c4534b409740d3",
+        "staking": "https://spicy-explorer.chiliz.com/address/0x589b5b8d25bc6a88b012ea64ab39b65e5ac0cf24",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0x610fa764ec8473a5d98604c2bf20c358822f892f",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 4,
+      "name": "The Rock",
+      "symbol": "ROCK",
+      "type": "entertainment",
+      "description": "Independent movie production and Hollywood projects",
+      "contracts": {
+        "fbtToken": "0x531a9db153f58102b0d734a5b90d2d104060e855",
+        "stakingVault": "0x6c0bac3ce69576d0c1a5394c87438b73d829f536",
+        "prizeRedemption": "0xb82dbfbe456a010c29b3665c04f3fda231823ec2",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0x531a9db153f58102b0d734a5b90d2d104060e855",
+        "staking": "https://spicy-explorer.chiliz.com/address/0x6c0bac3ce69576d0c1a5394c87438b73d829f536",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0xb82dbfbe456a010c29b3665c04f3fda231823ec2",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Neymar Jr",
+      "symbol": "NJF",
+      "type": "sportsTeam",
+      "description": "Brazilian youth development and charity initiatives",
+      "contracts": {
+        "fbtToken": "0x97770398829b9953df45a420a5402f45a156d7fb",
+        "stakingVault": "0xc7f403e90e9d5e3d0f0c1c55eb1b1f45df82ce26",
+        "prizeRedemption": "0x9d6bf6000e33077b6b5c74876bcadf395d05ffba",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0x97770398829b9953df45a420a5402f45a156d7fb",
+        "staking": "https://spicy-explorer.chiliz.com/address/0xc7f403e90e9d5e3d0f0c1c55eb1b1f45df82ce26",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0x9d6bf6000e33077b6b5c74876bcadf395d05ffba",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Lewis Hamilton",
+      "symbol": "LH44",
+      "type": "sportsTeam",
+      "description": "Formula 1 sustainability and racing academy",
+      "contracts": {
+        "fbtToken": "0xb16045f22f511e9ab61f571a53679682936c519f",
+        "stakingVault": "0x922ece466c049c2f47baa06487e31f4dbf372753",
+        "prizeRedemption": "0x02ee6514601658091b82fe5d6bd9a1bb87c4a7e1",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0xb16045f22f511e9ab61f571a53679682936c519f",
+        "staking": "https://spicy-explorer.chiliz.com/address/0x922ece466c049c2f47baa06487e31f4dbf372753",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0x02ee6514601658091b82fe5d6bd9a1bb87c4a7e1",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Serena Williams",
+      "symbol": "SERENA",
+      "type": "sportsTeam",
+      "description": "Women's tennis development and empowerment",
+      "contracts": {
+        "fbtToken": "0xf03d323c83d2646e9a45ad88635c6a93a4eb83ca",
+        "stakingVault": "0xcc38a1cc6eb4ce62445cdf907a84e34f5750d488",
+        "prizeRedemption": "0xe95886b7318fad3ff9ed0c3636a1be844fcdd868",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0xf03d323c83d2646e9a45ad88635c6a93a4eb83ca",
+        "staking": "https://spicy-explorer.chiliz.com/address/0xcc38a1cc6eb4ce62445cdf907a84e34f5750d488",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0xe95886b7318fad3ff9ed0c3636a1be844fcdd868",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Kylie Jenner",
+      "symbol": "KYLIE",
+      "type": "entertainment",
+      "description": "Beauty brand expansion and fashion collaborations",
+      "contracts": {
+        "fbtToken": "0x53b8275f6890f8137f00efc71d543a7c9a9c60de",
+        "stakingVault": "0x8ea2f9a593cfc48b60d1a769c269666c5e2bb87a",
+        "prizeRedemption": "0xb911564e707974fbebe1559feea1ef5d56080cdb",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0x53b8275f6890f8137f00efc71d543a7c9a9c60de",
+        "staking": "https://spicy-explorer.chiliz.com/address/0x8ea2f9a593cfc48b60d1a769c269666c5e2bb87a",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0xb911564e707974fbebe1559feea1ef5d56080cdb",
+        "pair": "Trading pair not created"
+      }
+    },
+    {
+      "id": 9,
+      "name": "Stephen Curry",
+      "symbol": "CURRY",
+      "type": "sportsTeam",
+      "description": "Basketball training academies and youth programs",
+      "contracts": {
+        "fbtToken": "0x488ec4c3220144dd5c33e732f20365c09c96e600",
+        "stakingVault": "0xc07252a70f6fe199676f3e4ad695ddc05ecab38c",
+        "prizeRedemption": "0xfc58cc7f457ec9066dba7bf8f4269c7ed4a537e1",
+        "tradingPair": "0x0000000000000000000000000000000000000000"
+      },
+      "features": [
+        "FBT Token - Fan Base Token with controlled minting/burning",
+        "Staking Vault - Multi-pool staking system with rewards",
+        "Prize Redemption - Token burning for merchandise/experiences",
+        "Trading Pair - DEX integration for token trading"
+      ],
+      "explorerUrls": {
+        "token": "https://spicy-explorer.chiliz.com/address/0x488ec4c3220144dd5c33e732f20365c09c96e600",
+        "staking": "https://spicy-explorer.chiliz.com/address/0xc07252a70f6fe199676f3e4ad695ddc05ecab38c",
+        "prizes": "https://spicy-explorer.chiliz.com/address/0xfc58cc7f457ec9066dba7bf8f4269c7ed4a537e1",
+        "pair": "Trading pair not created"
+      }
+    }
+  ],
+  "platformSummary": {
+    "totalContracts": 31,
+    "coreContracts": 4,
+    "celebrityEcosystems": 9,
+    "successfulDeployments": 9,
+    "networkInfo": {
+      "name": "Spicy Testnet",
+      "chainId": 88882,
+      "explorerBase": "https://spicy-explorer.chiliz.com/",
+      "rpcUrl": "https://spicy-rpc.chiliz.com/"
+    }
+  },
+  "interactionGuide": {
+    "tokenOperations": {
+      "minting": "Call FBTToken.mint(address, amount, reason) as owner",
+      "burning": "Call FBTToken.burn(amount, reason) as token holder",
+      "transfer": "Standard ERC20 transfer and transferFrom functions"
+    },
+    "stakingOperations": {
+      "createPools": "Call FBTStakingVault.createPool(name, duration, apy) as owner",
+      "staking": "Approve tokens then call stake(poolId, amount)",
+      "unstaking": "Call unstake(stakeId) after lock period"
+    },
+    "prizeOperations": {
+      "createPrizes": "Call PrizeRedemption.createPrize(...) as owner",
+      "redeeming": "Approve tokens then call redeemPrize(prizeId)"
+    },
+    "tradingOperations": {
+      "createPairs": "Call UniswapV2Factory.createPair(tokenA, tokenB)",
+      "addLiquidity": "Use UniswapV2Router02.addLiquidity(...)",
+      "swapping": "Use UniswapV2Router02.swapExactTokensForTokens(...)"
+    }
+  },
+  "testingScenarios": [
+    {
+      "scenario": "Token Minting and Distribution",
+      "steps": [
+        "Connect to Messi token contract",
+        "Call mint() function to create tokens",
+        "Distribute to test addresses",
+        "Verify balances and total supply"
+      ]
+    },
+    {
+      "scenario": "Staking Functionality",
+      "steps": [
+        "Create staking pools with different durations",
+        "Approve tokens for staking contract",
+        "Stake tokens in different pools",
+        "Test reward calculations and withdrawals"
+      ]
+    },
+    {
+      "scenario": "Prize Redemption",
+      "steps": [
+        "Create sample prizes",
+        "Approve tokens for prize contract",
+        "Redeem prizes and verify token burning",
+        "Check prize availability updates"
+      ]
+    },
+    {
+      "scenario": "DEX Trading",
+      "steps": [
+        "Create trading pairs for celebrity tokens",
+        "Add initial liquidity",
+        "Test token swaps",
+        "Verify price impact and slippage"
+      ]
+    }
+  ]
+}
